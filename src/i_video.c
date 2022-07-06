@@ -1240,8 +1240,8 @@ static void SetVideoMode(void)
 
         if (screen == NULL)
         {
-            I_Error("Error creating window for video startup: %s",
-            SDL_GetError());
+            // I_Error("Error creating window for video startup: %s",
+            // SDL_GetError());
         }
 
         pixel_format = SDL_GetWindowPixelFormat(screen);
