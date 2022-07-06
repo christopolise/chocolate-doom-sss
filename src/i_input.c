@@ -296,7 +296,7 @@ void I_HandleKeyboardEvent(char *keyevent)
     switch (keyevent[strlen(keyevent) - 1] == 'R')
     {
         case KEY_DOWN:
-            printf("Keydown\n");
+            // printf("Keydown\n");
             event.type = ev_keydown;
             // event.data1 = TranslateKey(&sdlevent->key.keysym);
             // event.data2 = GetLocalizedKey(&sdlevent->key.keysym);
@@ -320,7 +320,7 @@ void I_HandleKeyboardEvent(char *keyevent)
             break;
 
         case KEY_UP:
-            printf("Keyup\n");
+            // printf("Keyup\n");
             event.type = ev_keyup;
             event.data1 = (unsigned char) sss_Translate(keyevent);
 
