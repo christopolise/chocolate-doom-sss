@@ -961,23 +961,16 @@ void ST_Ticker (void)
                          "\"weapons\": \"[%d, %d, %d, %d, %d, %d, %d, %d, %d]\"," 
                          "\"ammo\": \"[%d,%d,%d,%d]\", "
                          "\"maxammo\": \"[%d,%d,%d,%d]\","
-                         "\"active_w_ind\": \"%d\"}",
+                         "\"active_w_ind\": \"%d\"}|",
                          plyr->mo->health,
                          plyr->armorpoints,
                          plyr->weaponowned[0],plyr->weaponowned[1],plyr->weaponowned[2],plyr->weaponowned[3],plyr->weaponowned[4],plyr->weaponowned[5],plyr->weaponowned[6],plyr->weaponowned[7],plyr->weaponowned[8],
                          plyr->ammo[0],plyr->ammo[1],plyr->ammo[2],plyr->ammo[3],
                          plyr->maxammo[0],plyr->maxammo[1],plyr->maxammo[2],plyr->maxammo[3],
                          (int) plyr->readyweapon - 1);
-    // printf("Health: %d\%\n", plyr->mo->health);
-    // printf("Armor: %d\%\n", plyr->armorpoints);
-    // for(int i = 0; i < NUMWEAPONS; i++)
-    //     printf("Weapon index: %d\n", plyr->weaponowned[i]);
-    
-    // for(int i = 0; i < NUMAMMO; i++)
-    //     printf("Ammo index: %d/%d\n", plyr->ammo[i], plyr->maxammo[i]);
-    printf("%s\n", statusbar);
+    // printf("%s\n", statusbar);
 
-    
+    memmove(output_stream_mem, statusbar, 2000*sizeof(char));
 
 }
 
