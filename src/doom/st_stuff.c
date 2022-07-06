@@ -956,12 +956,12 @@ void ST_Ticker (void)
     ST_updateWidgets();
     st_oldhealth = plyr->health;
     char statusbar[2000];
-    sprintf(statusbar, "{\"health\": \"%d\","
-                         "\"armor\": \"%d\"," 
-                         "\"weapons\": \"[%d, %d, %d, %d, %d, %d, %d, %d, %d]\"," 
-                         "\"ammo\": \"[%d,%d,%d,%d]\", "
-                         "\"maxammo\": \"[%d,%d,%d,%d]\","
-                         "\"active_w_ind\": \"%d\"}|",
+    sprintf(statusbar, "{\"health\": %d,"
+                         "\"armor\": %d," 
+                         "\"weapons\": [%d, %d, %d, %d, %d, %d, %d, %d, %d]," 
+                         "\"ammo\": [%d,%d,%d,%d], "
+                         "\"maxammo\": [%d,%d,%d,%d],"
+                         "\"active_w_ind\": %d}|",
                          plyr->mo->health,
                          plyr->armorpoints,
                          plyr->weaponowned[0],plyr->weaponowned[1],plyr->weaponowned[2],plyr->weaponowned[3],plyr->weaponowned[4],plyr->weaponowned[5],plyr->weaponowned[6],plyr->weaponowned[7],plyr->weaponowned[8],
