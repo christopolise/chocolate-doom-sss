@@ -1426,10 +1426,10 @@ void I_InitGraphics(void)
 
     SetSDLVideoDriver();
 
-    if (SDL_Init(SDL_INIT_VIDEO) < 0) 
-    {
-        I_Error("Failed to initialize video: %s", SDL_GetError());
-    }
+    // if (SDL_Init(SDL_INIT_VIDEO) < 0) 
+    // {
+    //     I_Error("Failed to initialize video: %s", SDL_GetError());
+    // }
 
     // When in screensaver mode, run full screen and auto detect
     // screen dimensions (don't change video mode)
