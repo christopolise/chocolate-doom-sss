@@ -92,8 +92,8 @@ static boolean initialized = false;
 
 // disable mouse?
 
-static boolean nomouse = false;
-int usemouse = 1;
+static boolean nomouse = true;
+int usemouse = 0;
 
 // Save screenshots in PNG format.
 
@@ -412,36 +412,67 @@ static void I_ToggleFullScreen(void)
 
 void I_GetEvent(void)
 {
-    extern void I_HandleKeyboardEvent(SDL_Event *sdlevent);
-    extern void I_HandleMouseEvent(SDL_Event *sdlevent);
+    // printf("Input?\n");
+    extern void I_HandleKeyboardEvent(char *keyevent);
+    // extern void I_HandleMouseEvent(SDL_Event *sdlevent);
+
+
+    extern void * input_stream_mem;
+
+    char *possible_input[16] = { "", "", "", "","", "", "", "","", "", "", "","", "", "", ""};
+
+    char test_input[2000];
+
+    memmove(test_input, input_stream_mem, 2000*sizeof(char));
+
+    // printf("Input: %s\n", test_input);
+
+    char * token = strtok(test_input, ",");
+
+    int i = 0;
+    while( token != NULL)
+    {
+        possible_input[i++] = token;
+        // printf( " %s\n ", token ); //printing each token
+        token = strtok(NULL, ",");
+    }
+
+
     SDL_Event sdlevent;
 
     SDL_PumpEvents();
 
-    while (SDL_PollEvent(&sdlevent))
+    // while (SDL_PollEvent(&sdlevent))
+    for(int i = 0; i < 16; i++)
     {
-        switch (sdlevent.type)
+        if(strlen(possible_input[i]) == 0)
         {
-            case SDL_KEYDOWN:
-                if (ToggleFullScreenKeyShortcut(&sdlevent.key.keysym))
-                {
-                    I_ToggleFullScreen();
-                    break;
-                }
+            continue;
+        }
+
+        // printf("%s\n", possible_input[i]);
+        switch (possible_input[i][strlen(possible_input[i]) - 1] == 'R')
+        {
+            case 0:
+                // if (ToggleFullScreenKeyShortcut(&sdlevent.key.keysym))
+                // {
+                //     I_ToggleFullScreen();
+                //     break;
+                // }
                 // deliberate fall-though
 
-            case SDL_KEYUP:
-		I_HandleKeyboardEvent(&sdlevent);
+            case 1:
+		I_HandleKeyboardEvent(possible_input[i]);
                 break;
 
-            case SDL_MOUSEBUTTONDOWN:
-            case SDL_MOUSEBUTTONUP:
-            case SDL_MOUSEWHEEL:
-                if (usemouse && !nomouse && window_focused)
-                {
-                    I_HandleMouseEvent(&sdlevent);
-                }
-                break;
+            // case SDL_MOUSEBUTTONDOWN:
+            // case SDL_MOUSEBUTTONUP:
+            // case SDL_MOUSEWHEEL:
+            //     if (usemouse && !nomouse && window_focused)
+            //     {
+            //         // I_HandleMouseEvent(&sdlevent);
+            //     }
+            //     break;
 
             case SDL_QUIT:
                 if (screensaver_mode)
@@ -695,6 +726,8 @@ static void CreateUpscaledTexture(boolean force)
 //
 void I_FinishUpdate (void)
 {
+    extern void * video_stream_mem;
+
     static int lasttic;
     int tics;
     int i;
@@ -800,6 +833,7 @@ void I_FinishUpdate (void)
     SDL_RenderCopy(renderer, texture_upscaled, NULL, NULL);
 
     // Draw!
+    memmove(video_stream_mem, I_VideoBuffer, SCREENWIDTH*SCREENHEIGHT*sizeof(pixel_t));
 
     SDL_RenderPresent(renderer);
 
@@ -1469,7 +1503,7 @@ void I_InitGraphics(void)
 // file system.
 void I_BindVideoVariables(void)
 {
-    M_BindIntVariable("use_mouse",                 &usemouse);
+    // M_BindIntVariable("use_mouse",                 &usemouse);
     M_BindIntVariable("fullscreen",                &fullscreen);
     M_BindIntVariable("video_display",             &video_display);
     M_BindIntVariable("aspect_ratio_correct",      &aspect_ratio_correct);

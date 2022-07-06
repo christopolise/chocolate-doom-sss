@@ -241,19 +241,73 @@ static int GetTypedChar(SDL_Keysym *sym)
     }
 }
 
-void I_HandleKeyboardEvent(SDL_Event *sdlevent)
+char sss_Translate(char* controller_input){
+    printf("%s\n", controller_input);
+    if (!strncmp(controller_input, "LEFT", 4))
+    {
+        return 'a';
+    }
+    else if (!strncmp(controller_input, "UP", 2))
+    {
+        return 'w';
+    }
+    else if (!strncmp(controller_input, "DOWN", 4))
+    {
+        return 's';
+    }
+    else if (!strncmp(controller_input, "RIGHT", 5))
+    {
+        return 'd';
+    }
+    else if (!strncmp(controller_input, "SEL", 3))
+    {
+        return '\r';
+    }
+    else if (!strncmp(controller_input, "PRI", 3))
+    {
+        return KEY_RCTRL;
+    }
+    else if (!strncmp(controller_input, "SEC", 3))
+    {
+        return KEY_DOWNARROW;
+    }
+    else if (!strncmp(controller_input, "START", 5))
+    {
+        return ' ';
+    }
+    return '\0';
+}
+
+void I_HandleKeyboardEvent(char *keyevent)
 {
+    #define KEY_DOWN 0
+    #define KEY_UP 1
+
     // XXX: passing pointers to event for access after this function
     // has terminated is undefined behaviour
     event_t event;
 
-    switch (sdlevent->type)
+    // printf("%c\n", keyevent[strlen(keyevent) - 1]);
+
+    switch (keyevent[strlen(keyevent) - 1] == 'R')
     {
-        case SDL_KEYDOWN:
+        case KEY_DOWN:
+            printf("Keydown\n");
             event.type = ev_keydown;
-            event.data1 = TranslateKey(&sdlevent->key.keysym);
-            event.data2 = GetLocalizedKey(&sdlevent->key.keysym);
-            event.data3 = GetTypedChar(&sdlevent->key.keysym);
+            // event.data1 = TranslateKey(&sdlevent->key.keysym);
+            // event.data2 = GetLocalizedKey(&sdlevent->key.keysym);
+            // event.data3 = GetTypedChar(&sdlevent->key.keysym);
+
+            event.data1 = (unsigned char) sss_Translate(keyevent);
+            event.data2 = (unsigned char) sss_Translate(keyevent);
+            event.data3 = (unsigned char) sss_Translate(keyevent);
+
+            // event.data1 = '\033';
+            // event.data2 = '[';
+            // event.data3 = 'B';
+
+
+            printf("%x, %x, %x\n", event.data1, event.data2, event.data3);
 
             if (event.data1 != 0)
             {
@@ -261,9 +315,10 @@ void I_HandleKeyboardEvent(SDL_Event *sdlevent)
             }
             break;
 
-        case SDL_KEYUP:
+        case KEY_UP:
+            printf("Keyup\n");
             event.type = ev_keyup;
-            event.data1 = TranslateKey(&sdlevent->key.keysym);
+            event.data1 = (unsigned char) sss_Translate(keyevent);
 
             // data2/data3 are initialized to zero for ev_keyup.
             // For ev_keydown it's the shifted Unicode character

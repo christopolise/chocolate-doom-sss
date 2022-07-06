@@ -22,6 +22,7 @@
 #include <string.h>
 
 #include <stdarg.h>
+#include <sys/shm.h>
 
 #ifdef _WIN32
 #define WIN32_LEAN_AND_MEAN
@@ -236,6 +237,15 @@ void I_BindVariables(void)
 
 void I_Quit (void)
 {
+    extern char * banana;
+    extern void * video_stream_mem;
+    extern void * input_stream_mem;
+    extern void * output_stream_mem;
+
+    extern int shmid;
+    extern int shmid_input;
+    extern int shmid_output;
+
     atexit_listentry_t *entry;
 
     // Run through all exit functions
@@ -249,6 +259,14 @@ void I_Quit (void)
     }
 
     SDL_Quit();
+    printf("Bye bye\n%s", banana);
+    shmdt(video_stream_mem);
+    shmdt(input_stream_mem);
+    shmdt(output_stream_mem);
+
+    shmctl(shmid, IPC_RMID, 0);
+    shmctl(shmid_input, IPC_RMID, 0);
+    shmctl(shmid_output, IPC_RMID, 0);
 
     exit(0);
 }
