@@ -1240,8 +1240,8 @@ static void SetVideoMode(void)
 
         if (screen == NULL)
         {
-            // I_Error("Error creating window for video startup: %s",
-            // SDL_GetError());
+            I_Error("Error creating window for video startup: %s",
+            SDL_GetError());
         }
 
         pixel_format = SDL_GetWindowPixelFormat(screen);
@@ -1258,8 +1258,8 @@ static void SetVideoMode(void)
 	
     if (SDL_GetCurrentDisplayMode(video_display, &mode) != 0)
     {
-        // I_Error("Could not get display mode for video display #%d: %s",
-        // video_display, SDL_GetError());
+        I_Error("Could not get display mode for video display #%d: %s",
+        video_display, SDL_GetError());
     }
 
     // Turn on vsync if we aren't in a -timedemo
@@ -1426,10 +1426,10 @@ void I_InitGraphics(void)
 
     SetSDLVideoDriver();
 
-    // if (SDL_Init(SDL_INIT_VIDEO) < 0) 
-    // {
-    //     I_Error("Failed to initialize video: %s", SDL_GetError());
-    // }
+    if (SDL_Init(SDL_INIT_VIDEO) < 0) 
+    {
+        I_Error("Failed to initialize video: %s", SDL_GetError());
+    }
 
     // When in screensaver mode, run full screen and auto detect
     // screen dimensions (don't change video mode)
