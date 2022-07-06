@@ -265,7 +265,8 @@ char sss_Translate(char* controller_input){
     }
     else if (!strncmp(controller_input, "PRI", 3))
     {
-        return KEY_RCTRL;
+        // return KEY_RCTRL;
+        return 'a';
     }
     else if (!strncmp(controller_input, "SEC", 3))
     {
