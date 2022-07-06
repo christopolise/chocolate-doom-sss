@@ -1258,8 +1258,8 @@ static void SetVideoMode(void)
 	
     if (SDL_GetCurrentDisplayMode(video_display, &mode) != 0)
     {
-        I_Error("Could not get display mode for video display #%d: %s",
-        video_display, SDL_GetError());
+        // I_Error("Could not get display mode for video display #%d: %s",
+        // video_display, SDL_GetError());
     }
 
     // Turn on vsync if we aren't in a -timedemo
