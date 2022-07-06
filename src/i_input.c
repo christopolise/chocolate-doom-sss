@@ -242,7 +242,7 @@ static int GetTypedChar(SDL_Keysym *sym)
 }
 
 char sss_Translate(char* controller_input){
-    printf("%s\n", controller_input);
+    printf("INCOMING: %s\n", controller_input);
     if (!strncmp(controller_input, "LEFT", 4))
     {
         return 'a';
