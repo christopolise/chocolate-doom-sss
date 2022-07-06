@@ -242,7 +242,7 @@ static int GetTypedChar(SDL_Keysym *sym)
 }
 
 char sss_Translate(char* controller_input){
-    printf("INCOMING: %s\n", controller_input);
+    // printf("INCOMING: %s\n", controller_input);
     if (!strncmp(controller_input, "LEFT", 4))
     {
         // return 'a';
@@ -311,7 +311,7 @@ void I_HandleKeyboardEvent(char *keyevent)
             // event.data3 = 'B';
 
 
-            printf("%x, %x, %x\n", event.data1, event.data2, event.data3);
+            // printf("%x, %x, %x\n", event.data1, event.data2, event.data3);
 
             if (event.data1 != 0)
             {
