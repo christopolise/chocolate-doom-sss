@@ -27,6 +27,7 @@
 #include "i_input.h"
 #include "m_argv.h"
 #include "m_config.h"
+#include "i_system.h"
 
 static const int scancode_translate_table[] = SCANCODE_TO_KEYS_ARRAY;
 
@@ -245,23 +246,23 @@ char sss_Translate(char* controller_input){
     // printf("INCOMING: %s\n", controller_input);
     if (!strncmp(controller_input, "LEFT", 4))
     {
-        // return 'a';
-        return KEY_LEFTARROW;
+        return 'a';
+        // return KEY_LEFTARROW;
     }
     else if (!strncmp(controller_input, "UP", 2))
     {
-        // return 'w';
-        return KEY_UPARROW;
+        return 'w';
+        // return KEY_UPARROW;
     }
     else if (!strncmp(controller_input, "DOWN", 4))
     {
-        // return 's';
-        return KEY_DOWNARROW;
+        return 's';
+        // return KEY_DOWNARROW;
     }
     else if (!strncmp(controller_input, "RIGHT", 5))
     {
-        // return 'd';
-        return KEY_RIGHTARROW;
+        return 'd';
+        // return KEY_RIGHTARROW;
     }
     else if (!strncmp(controller_input, "SEL", 3))
     {
@@ -296,6 +297,14 @@ void I_HandleKeyboardEvent(char *keyevent)
     switch (keyevent[strlen(keyevent) - 1] == 'R')
     {
         case KEY_DOWN:
+
+            // Check to see if game_over
+            if (!strncmp(keyevent, "QUIT", 4))
+            {
+                // Exit
+                I_Quit();
+            }
+
             // printf("Keydown\n");
             event.type = ev_keydown;
             // event.data1 = TranslateKey(&sdlevent->key.keysym);

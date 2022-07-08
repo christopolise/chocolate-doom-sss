@@ -98,7 +98,7 @@ int main(int argc, char **argv)
 #endif
 
     // start doom
-
+    printf("YOWWWW!!!!\n");
     D_DoomMain();
 
     return 0;
