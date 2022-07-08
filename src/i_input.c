@@ -246,23 +246,23 @@ char sss_Translate(char* controller_input){
     // printf("INCOMING: %s\n", controller_input);
     if (!strncmp(controller_input, "LEFT", 4))
     {
-        return 'a';
-        // return KEY_LEFTARROW;
+        // return 'a';
+        return KEY_LEFTARROW;
     }
     else if (!strncmp(controller_input, "UP", 2))
     {
-        return 'w';
-        // return KEY_UPARROW;
+        // return 'w';
+        return KEY_UPARROW;
     }
     else if (!strncmp(controller_input, "DOWN", 4))
     {
-        return 's';
-        // return KEY_DOWNARROW;
+        // return 's';
+        return KEY_DOWNARROW;
     }
     else if (!strncmp(controller_input, "RIGHT", 5))
     {
-        return 'd';
-        // return KEY_RIGHTARROW;
+        // return 'd';
+        return KEY_RIGHTARROW;
     }
     else if (!strncmp(controller_input, "SEL", 3))
     {
